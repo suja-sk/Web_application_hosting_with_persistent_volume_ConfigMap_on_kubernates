@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "php-app"
+spec:
+  selector:
+    matchLabels:
+      region: india 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        region: india
+
+    spec:
+      volumes:
+        - name: mypvc1
+          persistentVolumeClaim:
+            claimName: mypvc1       
+      containers:
+        - name: c1
+          image: suja98/apache-custom-ip:v1
+          volumeMounts:
+            - name: mypvc1
+              mountPath: /var/www/html/
+            

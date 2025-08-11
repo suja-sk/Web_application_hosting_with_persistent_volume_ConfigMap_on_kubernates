@@ -1,0 +1,17 @@
+# pvc-apps-static.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc-apps
+  namespace: dev
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: pv-apps                # MUST match the static PV name
+  storageClassName: ""              # MUST be empty for static PV
+
+
+

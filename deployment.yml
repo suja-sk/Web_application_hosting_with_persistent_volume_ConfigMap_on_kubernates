@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "php-app"
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      region: india
+  template:
+    metadata:
+      labels:
+        region: india
+    spec:
+      containers:
+        - name: c1
+          image: suja98/apache-custom-ip:v1
+          ports:
+            - containerPort: 1234             # Match wasik.conf
+          volumeMounts:
+            - name: pv-data
+              mountPath: /var/www/html/
+            - name: apache-config
+              mountPath: /etc/httpd/conf.d/wasik.conf
+              subPath: wasik.conf
+      volumes:
+        - name: pv-data
+          persistentVolumeClaim:
+            claimName: data-pvc
+        - name: apache-config
+          persistentVolumeClaim:
+            claimName: mypvc-apps   # ← This is your static PVC

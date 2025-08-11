@@ -1,0 +1,15 @@
+# pv-apps-static.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-apps
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 192.168.59.102
+    path: /apps
+  volumeMode: Filesystem
